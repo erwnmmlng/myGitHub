@@ -1,0 +1,36 @@
+import mysql.connector
+
+# Replace these with your MySQL server details
+host = "your_mysql_host"
+user = "your_mysql_username"
+password = "your_mysql_password"
+database = "your_mysql_database"
+
+# Create a connection to the MySQL server
+try:
+    connection = mysql.connector.connect(
+        host=host,
+        user=user,
+        password=password,
+        database=database
+    )
+
+    if connection.is_connected():
+        print("Connected to MySQL server")
+
+    # Create a cursor to interact with the database
+    cursor = connection.cursor()
+
+    # Example: Execute a simple query
+    cursor.execute("SELECT * FROM your_table_name")
+
+    # Fetch and print the results
+    for row in cursor.fetchall():
+        print(row)
+
+except mysql.connector.Error as err:
+    print(f"Error: {err}")
+finally:
+    if 'connection' in locals():
+        connection.close()
+        print("MySQL connection is closed")
